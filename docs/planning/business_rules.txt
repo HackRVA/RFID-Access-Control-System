@@ -1,0 +1,13 @@
+----------------------------------------------
+- RFID ACCESS CONTROL PROGRAM BUSINESS RULES
+- AUTHOR: LUKE LIBRARO
+- CREATE DATE: 9/26/10
+----------------------------------------------
+
+A user can have multiple tags.
+A group can be allowed to 0 or more zones.
+A zone can have 1 or more entrances.
+A user can belong to multple groups.
+Group permissions are additive.
+A group can be allowed for a date range or permanently.
+A user or group can be locked out.
