@@ -33,6 +33,7 @@ BEGIN
 			tag_data = p_tag_data
 		WHERE
 			id = p_id;
+SET row_id = p_id;
 	END IF;
 
 	SELECT * FROM tag 
