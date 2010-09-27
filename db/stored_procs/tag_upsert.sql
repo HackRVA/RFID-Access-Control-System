@@ -1,43 +1,40 @@
 use rfid_auth;
 -- --------------------------------------------------------------------------------
--- user_upsert stored routine
+-- tag_upsert stored routine
 -- inserts a row if p_id is 0, otherwise updates the row with the id specified
 -- --------------------------------------------------------------------------------
 DELIMITER $$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `user_upsert`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tag_upsert`(
 	IN	p_id				INT,
-	IN	p_locked_out		BOOL,
-	IN	p_name			VARCHAR(45)
+	IN	p_user_id			INT,
+	IN	p_tag_data			VARCHAR(20)
 )
 BEGIN
 	DECLARE row_id INT;
 	IF p_id = 0 THEN
-		INSERT INTO `rfid_auth`.`user`
+		INSERT INTO `rfid_auth`.`tag`
 		(
 			`id`,
-			`locked_out`,
-			`name`,
-			`create_datetime`
+			`user_id`,
+			`tag_data`
 		)
 		VALUES
 		(
 			p_id,
-			p_locked_out,
-			p_name,
-			now()
+			p_user_id,
+			p_tag_data
 		);
 		SET row_id = last_insert_id();
 	ELSE
-		UPDATE `rfid_auth`.`user`
+		UPDATE `rfid_auth`.`tag`
 		SET
-			locked_out = p_locked_out,
-			name = p_name
+			user_id = p_user_id,
+			tag_data = p_tag_data
 		WHERE
 			id = p_id;
-		SET row_id = p_id;
 	END IF;
-	
-	SELECT * FROM user 
+
+	SELECT * FROM tag 
 	WHERE id = row_id;
 END
